@@ -2,14 +2,25 @@ import './App.css';
 
 function App() {
   const progressbar = document.querySelector('.progressbar');
+  let progress = '0';
 
   function enableProgressbar() {
     progressbar?.setAttribute('role', 'progressbar');
-    progressbar?.setAttribute('aria-valuenow', 0);
+    progressbar?.setAttribute('aria-valuenow', progress);
     progressbar?.setAttribute('aria-live', 'polite');
   }
 
   enableProgressbar();
+
+  //for simulation
+  const testingGround = document.querySelector('.testing-ground');
+
+  testingGround?.addEventListener('click', (e) => {
+    if (!e.target?.closest('button')) return;
+
+    progress = e.target.dataset.progress;
+    progressbar?.setAttribute('aria-valuenow', progress);
+  });
 
   return (
     <>
