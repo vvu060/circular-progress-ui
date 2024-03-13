@@ -1,6 +1,16 @@
 import './App.css';
 
 function App() {
+  const progressbar = document.querySelector('.progressbar');
+
+  function enableProgressbar() {
+    progressbar?.setAttribute('role', 'progressbar');
+    progressbar?.setAttribute('aria-valuenow', 0);
+    progressbar?.setAttribute('aria-live', 'polite');
+  }
+
+  enableProgressbar();
+
   return (
     <>
       <h1>Front-End challenge: Progress Indicator</h1>
