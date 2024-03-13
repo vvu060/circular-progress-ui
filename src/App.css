@@ -1,0 +1,34 @@
+[role='progressbar'] {
+  --size: 132px;
+  --bar-width: 20px;
+
+  font-size: 2rem;
+  width: var(--size);
+  aspect-ratio: 1/1;
+
+  background: blue;
+  margin: 2rem auto;
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  &::after {
+    content: attr(aria-valuenow) '%';
+    background: white;
+    border-radius: inherit;
+    width: calc(100% - var(--bar-width));
+    aspect-ratio: 1/1;
+
+    display: grid;
+    place-items: center;
+  }
+
+  span {
+    display: none;
+  }
+}
+
+.progressbar:not([role='progressbar']) {
+  color: red;
+}
