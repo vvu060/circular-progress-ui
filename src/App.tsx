@@ -1,8 +1,10 @@
 import './App.css';
 
 function App() {
-  const progressbar = document.querySelector('.progressbar');
-  let progress = '0';
+  const progressbar: HTMLDivElement | null =
+    document.querySelector('.progressbar');
+  let progress = 0;
+  const interval = 0;
 
   function enableProgressbar() {
     progressbar?.setAttribute('role', 'progressbar');
@@ -19,8 +21,40 @@ function App() {
     if (!e.target?.closest('button')) return;
 
     progress = e.target.dataset.progress;
-    progressbar?.setAttribute('aria-valuenow', progress);
+    simulateProgress(progress);
   });
+
+  function simulateProgress(newProgressValue: string | number) {
+    clearInterval(interval);
+    if (newProgressValue === 'fake-upload') {
+      simulateUpload();
+    } else {
+      updateProgress(newProgressValue);
+    }
+  }
+
+  function updateProgress(progress: number | string) {
+    progressbar?.setAttribute('aria-valuenow', progress);
+    progressbar?.style.setProperty('--progress', progress + '%');
+  }
+
+  function simulateUpload() {
+    // aria-busy prevents it from announcing every change as it keeps updating the progress
+    // make sure to set it false once the progress is finished
+    progressbar?.setAttribute('aria-busy', 'true');
+    let progress = 0;
+    updateProgress(progress);
+
+    const intervalTimer = setInterval(() => {
+      progress += 5;
+      updateProgress(progress);
+      if (progress === 100) {
+        // probably want something to catch errros and also have this set to false then too
+        progressbar?.setAttribute('aria-busy', 'false');
+        clearInterval(intervalTimer);
+      }
+    }, 500);
+  }
 
   return (
     <>
