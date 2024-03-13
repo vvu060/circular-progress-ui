@@ -6,7 +6,10 @@
   width: var(--size);
   aspect-ratio: 1/1;
 
-  background: blue;
+  background: conic-gradient(
+    var(--color-dark) var(--progress, 0),
+    var(--color-dark-glare) 0%
+  );
   margin: 2rem auto;
   border-radius: 50%;
 
@@ -29,6 +32,7 @@
   }
 }
 
+/* If JS is disabled */
 .progressbar:not([role='progressbar']) {
   color: red;
 }
